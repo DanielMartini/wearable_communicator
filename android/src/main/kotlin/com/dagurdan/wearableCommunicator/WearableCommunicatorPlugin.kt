@@ -101,7 +101,7 @@ public class WearableCommunicatorPlugin: FlutterPlugin, MethodCallHandler, Activ
             result.success(null)
         } else {
             try {
-                val argument = call.arguments<HashMap<String, Any>>()
+                val argument = call.arguments<HashMap<Any?, Any?>>()
                 val client = Wearable.getMessageClient(activity!!)
                 Wearable.getNodeClient(activity!!).connectedNodes.addOnSuccessListener { nodes ->
                     nodes.forEach { node ->
