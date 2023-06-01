@@ -47,24 +47,24 @@ class WearableListener {
         if (call.arguments["args"] is String) {
           try {
             Map value = json.decode(call.arguments["args"]);
-            _messageCallbacksById[call.arguments["id"]](value);
+            _messageCallbacksById[call.arguments["id"]]!(value);
           } catch (Exception) {
-            _messageCallbacksById[call.arguments["id"]](call.arguments["args"]);
+            _messageCallbacksById[call.arguments["id"]]!(call.arguments["args"]);
           }
         } else {
-          _messageCallbacksById[call.arguments["id"]](call.arguments["args"]);
+          _messageCallbacksById[call.arguments["id"]]!(call.arguments["args"]);
         }
         break;
       case 'dataReceived':
         if (call.arguments["args"] is String) {
           try {
             Map value = json.decode(call.arguments["args"]);
-            _dataCallbacksById[call.arguments["id"]](value);
+            _dataCallbacksById[call.arguments["id"]]!(value);
           } catch (Exception) {
-            _dataCallbacksById[call.arguments["id"]](call.arguments["args"]);
+            _dataCallbacksById[call.arguments["id"]]!(call.arguments["args"]);
           }
         } else {
-          _dataCallbacksById[call.arguments["id"]](call.arguments["args"]);
+          _dataCallbacksById[call.arguments["id"]]!(call.arguments["args"]);
         }
 
         break;
@@ -76,7 +76,7 @@ class WearableListener {
 
   /// register a callback function for wearable messages
   /// returns a function to stop the listener
-  static Future<void> listenForMessage(MultiUseCallback callback) async {
+  static Future<Null Function()> listenForMessage(MultiUseCallback callback) async {
     _channel.setMethodCallHandler(_methodCallHandler);
     int currentListenerId = _nextCallbackId++;
     _messageCallbacksById[currentListenerId] = callback;
@@ -89,7 +89,7 @@ class WearableListener {
 
   /// register a function for data layer events
   /// returns a function to stop the listener
-  static Future<void> listenForDataLayer(MultiUseCallback callback) async {
+  static Future<Null Function()> listenForDataLayer(MultiUseCallback callback) async {
     _channel.setMethodCallHandler(_methodCallHandler);
     int currentListenerId = _nextCallbackId++;
     _dataCallbacksById[currentListenerId] = callback;
