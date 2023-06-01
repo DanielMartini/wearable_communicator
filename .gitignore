@@ -6,5 +6,5 @@
 .pub/
 
 build/
-pubspec.lock
 /.idea/
+pubspec.lock
